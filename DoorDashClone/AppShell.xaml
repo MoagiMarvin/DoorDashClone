@@ -26,7 +26,7 @@
                 Route="OrdersPage" />
         </Tab>
 
-        <Tab Title="Account" Icon="account.png">
+        <Tab Title="Account" Icon="account.png">  
             <ShellContent
                 ContentTemplate="{DataTemplate views:AccountPage}"
                 Route="AccountPage" />

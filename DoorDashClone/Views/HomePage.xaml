@@ -18,7 +18,7 @@
                     <VerticalStackLayout>
                         <Label Text="Delivery to" TextColor="#757575" FontSize="13"/>
                         <Grid ColumnDefinitions="Auto,*,Auto">
-                            <Image Source="pin_location.png" 
+                            <Image Source="pin.png" 
                                    HeightRequest="16" 
                                    WidthRequest="16"/>
                             <Label Grid.Column="1" 
@@ -99,7 +99,7 @@
                                CornerRadius="35"
                                Padding="0"
                                BackgroundColor="White">
-                            <Image Source="cat_convenience.png"
+                            <Image Source="convenience.png"
                                    Margin="15"/>
                         </Frame>
                         <Label Text="Convenience"
@@ -115,7 +115,7 @@
                                CornerRadius="35"
                                Padding="0"
                                BackgroundColor="White">
-                            <Image Source="cat_grocery.png"
+                            <Image Source="shopping.png"
                                    Margin="15"/>
                         </Frame>
                         <Label Text="Grocery"
@@ -131,7 +131,7 @@
                                CornerRadius="35"
                                Padding="0"
                                BackgroundColor="White">
-                            <Image Source="cat_alcohol.png"
+                            <Image Source="alcohol.png"
                                    Margin="15"/>
                         </Frame>
                         <Label Text="Alcohol"
@@ -147,7 +147,7 @@
                                CornerRadius="35"
                                Padding="0"
                                BackgroundColor="White">
-                            <Image Source="cat_pets.png"
+                            <Image Source="pets.png"
                                    Margin="15"/>
                         </Frame>
                         <Label Text="Pets"
