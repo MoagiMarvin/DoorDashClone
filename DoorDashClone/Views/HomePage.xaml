@@ -1,103 +1,265 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:DoorDashClone.ViewModels"
-             x:Class="DoorDashClone.Views.HomePage">
+             x:Class="DoorDashClone.Views.HomePage"
+             BackgroundColor="#F5F5F5">
 
-    <ContentPage.BindingContext>
-        <viewmodels:HomeViewModel />
-    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            <!-- Location Header -->
+            <Grid BackgroundColor="White" Padding="15,10" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-    <Grid RowDefinitions="Auto,Auto,*">
-        <!-- Loading Indicator -->
-        <ActivityIndicator IsVisible="{Binding IsLoading}"
-                          IsRunning="{Binding IsLoading}"
-                          HorizontalOptions="Center"
-                          VerticalOptions="Center"
-                          Grid.RowSpan="3" />
-
-        <!-- Location Header -->
-        <Grid Grid.Row="0" Padding="15,10" ColumnDefinitions="*,Auto">
-            <VerticalStackLayout>
-                <Label Text="Delivery to" TextColor="Gray" FontSize="14"/>
-                <Grid ColumnDefinitions="Auto,*">
-                    <Image Source="location.png" 
-                           HeightRequest="20" 
-                           WidthRequest="20"/>
-                    <Label Grid.Column="1" 
-                           Text="Current Location" 
-                           FontSize="16" 
-                           FontAttributes="Bold"/>
-                </Grid>
-            </VerticalStackLayout>
-            <Frame Grid.Column="1" 
-                   HeightRequest="40" 
-                   WidthRequest="40" 
-                   CornerRadius="20" 
-                   Padding="0"
-                   BorderColor="LightGray">
-                <Image Source="profile.png" 
-                       Aspect="AspectFill"/>
-            </Frame>
-        </Grid>
-
-        <!-- Categories ScrollView -->
-        <ScrollView Grid.Row="1" 
-                   Orientation="Horizontal" 
-                   Margin="0,10">
-            <HorizontalStackLayout Spacing="10" 
-                                 Padding="15,0">
-                <Frame BorderColor="LightGray" 
-                       CornerRadius="25" 
-                       HeightRequest="50"
-                       Padding="15,0">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:HomeViewModel}}, 
-                                             Path=SelectCategoryCommand}"
-                                             CommandParameter="" />
-                    </Frame.GestureRecognizers>
-                    <Label Text="All" 
-                           VerticalOptions="Center"/>
-                </Frame>
-                <!-- Add more category frames with similar gesture recognizers -->
-            </HorizontalStackLayout>
-        </ScrollView>
-
-        <!-- Restaurant List -->
-        <CollectionView Grid.Row="2" 
-                       ItemsSource="{Binding Restaurants}"
-                       Margin="15,0">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="0,10" 
-                           Padding="0" 
-                           BorderColor="Transparent">
-                        <Grid RowDefinitions="160,Auto">
-                            <Image Aspect="AspectFill"
-                                   Source="{Binding ImageUrl}"/>
-                            <VerticalStackLayout Grid.Row="1" 
-                                               Padding="10">
-                                <Label Text="{Binding Name}" 
-                                       FontAttributes="Bold" 
-                                       FontSize="16"/>
-                                <Label Text="{Binding Description}" 
-                                       TextColor="Gray"/>
-                                <Grid ColumnDefinitions="Auto,*,Auto" 
-                                      Margin="0,5,0,0">
-                                    <Label Text="{Binding Rating}" 
-                                           FontSize="14"/>
-                                    <Label Grid.Column="1" 
-                                           Text="{Binding DeliveryTime}" 
-                                           Margin="10,0"/>
-                                    <Label Grid.Column="2" 
-                                           Text="{Binding DeliveryFee}"/>
-                                </Grid>
-                            </VerticalStackLayout>
+                <!-- Top Row: Location and Profile -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="Delivery to" TextColor="#757575" FontSize="13"/>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Image Source="pin_location.png" 
+                                   HeightRequest="16" 
+                                   WidthRequest="16"/>
+                            <Label Grid.Column="1" 
+                                   Text="Current Location" 
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   Margin="5,0,0,0"/>
+                            <Image Grid.Column="2" 
+                                   Source="chevron_down.png"
+                                   HeightRequest="16" 
+                                   WidthRequest="16"/>
                         </Grid>
+                    </VerticalStackLayout>
+
+                    <Frame Grid.Column="1" 
+                           HeightRequest="35" 
+                           WidthRequest="35" 
+                           CornerRadius="17.5" 
+                           Padding="0"
+                           BorderColor="LightGray"
+                           IsClippedToBounds="True">
+                        <Image Source="profile_default.png" 
+                               Aspect="AspectFill"/>
                     </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
+                </Grid>
+
+                <!-- Search Bar -->
+                <Frame Grid.Row="1" 
+                       Padding="15,0" 
+                       HeightRequest="45"
+                       BorderColor="Transparent"
+                       BackgroundColor="#F5F5F5"
+                       CornerRadius="22.5">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Image Source="search.png" 
+                               HeightRequest="18" 
+                               WidthRequest="18"/>
+                        <Label Grid.Column="1"
+                               Text="Search restaurants, groceries, etc."
+                               TextColor="#757575"
+                               VerticalOptions="Center"
+                               Margin="10,0,0,0"/>
+                    </Grid>
+                </Frame>
+            </Grid>
+
+            <!-- DashPass Banner -->
+            <Frame Margin="15,15,15,0" 
+                   Padding="15" 
+                   BackgroundColor="#E6F2FF"
+                   BorderColor="Transparent"
+                   CornerRadius="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="Try DashPass Free" 
+                               FontAttributes="Bold"
+                               TextColor="#0066CC"/>
+                        <Label Text="Get unlimited $0 delivery fees on orders $12+" 
+                               TextColor="#0066CC"
+                               FontSize="13"/>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1" 
+                           Source="dashpass.png"
+                           HeightRequest="40" 
+                           WidthRequest="40"/>
+                </Grid>
+            </Frame>
+
+            <!-- Category Scroll -->
+            <ScrollView Orientation="Horizontal" 
+                       Margin="0,15,0,0">
+                <HorizontalStackLayout Spacing="15" 
+                                     Padding="15,0">
+                    <!-- Convenience -->
+                    <VerticalStackLayout>
+                        <Frame HeightRequest="70" 
+                               WidthRequest="70"
+                               CornerRadius="35"
+                               Padding="0"
+                               BackgroundColor="White">
+                            <Image Source="cat_convenience.png"
+                                   Margin="15"/>
+                        </Frame>
+                        <Label Text="Convenience"
+                               HorizontalOptions="Center"
+                               FontSize="13"
+                               Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+
+                    <!-- Grocery -->
+                    <VerticalStackLayout>
+                        <Frame HeightRequest="70" 
+                               WidthRequest="70"
+                               CornerRadius="35"
+                               Padding="0"
+                               BackgroundColor="White">
+                            <Image Source="cat_grocery.png"
+                                   Margin="15"/>
+                        </Frame>
+                        <Label Text="Grocery"
+                               HorizontalOptions="Center"
+                               FontSize="13"
+                               Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+
+                    <!-- Alcohol -->
+                    <VerticalStackLayout>
+                        <Frame HeightRequest="70" 
+                               WidthRequest="70"
+                               CornerRadius="35"
+                               Padding="0"
+                               BackgroundColor="White">
+                            <Image Source="cat_alcohol.png"
+                                   Margin="15"/>
+                        </Frame>
+                        <Label Text="Alcohol"
+                               HorizontalOptions="Center"
+                               FontSize="13"
+                               Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+
+                    <!-- Pets -->
+                    <VerticalStackLayout>
+                        <Frame HeightRequest="70" 
+                               WidthRequest="70"
+                               CornerRadius="35"
+                               Padding="0"
+                               BackgroundColor="White">
+                            <Image Source="cat_pets.png"
+                                   Margin="15"/>
+                        </Frame>
+                        <Label Text="Pets"
+                               HorizontalOptions="Center"
+                               FontSize="13"
+                               Margin="0,5,0,0"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!-- Promo Banners -->
+            <ScrollView Orientation="Horizontal" 
+                       Margin="0,15,0,0">
+                <HorizontalStackLayout Spacing="10" 
+                                     Padding="15,0">
+                    <Frame HeightRequest="150" 
+                           WidthRequest="300"
+                           Padding="0"
+                           IsClippedToBounds="True">
+                        <Image Source="promo_1.png"
+                               Aspect="AspectFill"/>
+                    </Frame>
+                    <Frame HeightRequest="150" 
+                           WidthRequest="300"
+                           Padding="0"
+                           IsClippedToBounds="True">
+                        <Image Source="promo_2.png"
+                               Aspect="AspectFill"/>
+                    </Frame>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!-- Restaurant List Header -->
+            <Grid Margin="15,20,15,10" 
+                  ColumnDefinitions="*,Auto">
+                <Label Text="Restaurants near you" 
+                       FontAttributes="Bold"
+                       FontSize="16"/>
+                <Label Grid.Column="1" 
+                       Text="See all"
+                       TextColor="#EB1C23"/>
+            </Grid>
+
+            <!-- Restaurant List -->
+            <CollectionView ItemsSource="{Binding Restaurants}"
+                          Margin="15,0,15,20">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,0,0,15" 
+                               Padding="0"
+                               BorderColor="Transparent"
+                               BackgroundColor="White"
+                               CornerRadius="10">
+                            <Grid RowDefinitions="160,Auto">
+                                <!-- Restaurant Image -->
+                                <Grid>
+                                    <Image Aspect="AspectFill"
+                                           Source="{Binding ImageUrl}"/>
+                                    <Frame HorizontalOptions="Start"
+                                           VerticalOptions="Start"
+                                           Margin="10"
+                                           Padding="8,4"
+                                           BackgroundColor="#EB1C23"
+                                           BorderColor="Transparent"
+                                           CornerRadius="5">
+                                        <Label Text="{Binding PromoText}"
+                                               TextColor="White"
+                                               FontSize="12"/>
+                                    </Frame>
+                                </Grid>
+
+                                <!-- Restaurant Details -->
+                                <VerticalStackLayout Grid.Row="1" 
+                                                   Padding="12">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Text="{Binding Name}"
+                                               FontAttributes="Bold"
+                                               FontSize="16"/>
+                                        <Frame Grid.Column="1"
+                                               Padding="8,4"
+                                               BackgroundColor="#F5F5F5"
+                                               BorderColor="Transparent"
+                                               CornerRadius="15">
+                                            <Label Text="{Binding Rating}"
+                                                   FontSize="13"/>
+                                        </Frame>
+                                    </Grid>
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="#757575"
+                                           Margin="0,5"/>
+
+                                    <Grid ColumnDefinitions="Auto,*,Auto"
+                                          Margin="0,5,0,0">
+                                        <Label Text="{Binding DeliveryTime}"
+                                               FontSize="13"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Distance}"
+                                               Margin="15,0"
+                                               FontSize="13"/>
+                                        <Label Grid.Column="2"
+                                               Text="{Binding DeliveryFee}"
+                                               FontSize="13"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

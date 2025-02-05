@@ -2,10 +2,69 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoorDashClone.Views.SearchPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Search Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <!-- Search Header -->
+        <Grid Padding="15,10" BackgroundColor="White">
+            <Frame Padding="15,0" 
+                   HeightRequest="45"
+                   BorderColor="Transparent"
+                   BackgroundColor="#F5F5F5"
+                   CornerRadius="22.5">
+                <Grid ColumnDefinitions="Auto,*">
+                    <Image Source="search.png" 
+                           HeightRequest="18" 
+                           WidthRequest="18"/>
+                    <Entry Grid.Column="1"
+                           Placeholder="Search stores and products"
+                           PlaceholderColor="#757575"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"/>
+                </Grid>
+            </Frame>
+        </Grid>
+
+        <!-- Categories Header -->
+        <Label Grid.Row="1"
+               Text="Top Categories"
+               FontAttributes="Bold"
+               FontSize="18"
+               Margin="15,20,15,10"/>
+
+        <!-- Categories Grid -->
+        <CollectionView Grid.Row="2" 
+                       ItemsSource="{Binding Categories}"
+                       Margin="15,0">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                Span="2"
+                                VerticalItemSpacing="15"
+                                HorizontalItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame HeightRequest="100"
+                           BackgroundColor="White"
+                           BorderColor="Transparent"
+                           CornerRadius="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"/>
+                                <Label Text="{Binding Description}"
+                                       TextColor="Gray"
+                                       FontSize="14"/>
+                            </VerticalStackLayout>
+                            <Image Grid.Column="1"
+                                   Source="{Binding ImageUrl}"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   Aspect="AspectFit"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

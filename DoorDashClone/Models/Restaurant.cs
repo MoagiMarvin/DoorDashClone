@@ -10,6 +10,9 @@
         public string DeliveryTime { get; set; }
         public string DeliveryFee { get; set; }
         public List<string> Categories { get; set; }
+        public string Distance { get; internal set; }
+        public string PromoText { get; internal set; }
+        
 
         public Restaurant()
         {

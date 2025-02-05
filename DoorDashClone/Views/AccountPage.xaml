@@ -2,10 +2,79 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoorDashClone.Views.AccountPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Account Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20">
+            <!-- Profile Header -->
+            <Grid Padding="15,20" BackgroundColor="White">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Frame HeightRequest="60"
+                           WidthRequest="60"
+                           CornerRadius="30"
+                           Padding="0"
+                           IsClippedToBounds="True">
+                        <Image Source="profile_default.png"
+                               Aspect="AspectFill"/>
+                    </Frame>
+                    <VerticalStackLayout Grid.Column="1"
+                                       Margin="15,0">
+                        <Label Text="Sign in"
+                               FontAttributes="Bold"
+                               FontSize="18"/>
+                        <Label Text="For faster checkout"
+                               TextColor="Gray"/>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="2"
+                           Source="chevron_right.png"
+                           HeightRequest="20"
+                           WidthRequest="20"/>
+                </Grid>
+            </Grid>
+
+            <!-- DashPass Section -->
+            <Frame Margin="15,0" 
+                   Padding="15"
+                   BackgroundColor="#E6F2FF"
+                   BorderColor="Transparent">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="Try DashPass Free"
+                               TextColor="#0066CC"
+                               FontAttributes="Bold"/>
+                        <Label Text="Get unlimited $0 delivery fees on orders $12+"
+                               TextColor="#0066CC"/>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1"
+                           Source="dashpass.png"
+                           HeightRequest="40"
+                           WidthRequest="40"/>
+                </Grid>
+            </Frame>
+
+            <!-- Menu Items -->
+            <VerticalStackLayout Spacing="1" BackgroundColor="#EEEEEE">
+                <Label Text="Orders" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+                <Label Text="Favorite Items" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+                <Label Text="Payment Methods" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+                <Label Text="Addresses" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+                <Label Text="DashPass" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+                <Label Text="Help" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+                <Label Text="Settings" 
+                       Padding="15"
+                       BackgroundColor="White"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

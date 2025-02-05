@@ -2,10 +2,60 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoorDashClone.Views.OrdersPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Orders Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <Label Text="Orders"
+               FontAttributes="Bold"
+               FontSize="24"
+               Margin="15,20"/>
+
+        <!-- Orders List -->
+        <CollectionView Grid.Row="1" 
+                       ItemsSource="{Binding Orders}"
+                       EmptyView="No orders yet">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="15,0,15,15"
+                           Padding="15"
+                           BorderColor="Transparent"
+                           BackgroundColor="White">
+                        <Grid RowDefinitions="Auto,Auto,Auto" 
+                              RowSpacing="10">
+                            <!-- Restaurant Info -->
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Image Source="{Binding RestaurantImage}"
+                                       HeightRequest="50"
+                                       WidthRequest="50"
+                                       Aspect="AspectFit"/>
+                                <VerticalStackLayout Grid.Column="1"
+                                                   Margin="10,0">
+                                    <Label Text="{Binding RestaurantName}"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding OrderDate}"
+                                           TextColor="Gray"/>
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2"
+                                       Text="{Binding OrderTotal}"
+                                       FontAttributes="Bold"/>
+                            </Grid>
+
+                            <!-- Order Items -->
+                            <Label Grid.Row="1"
+                                   Text="{Binding OrderItems}"
+                                   TextColor="Gray"/>
+
+                            <!-- Reorder Button -->
+                            <Button Grid.Row="2"
+                                    Text="Reorder"
+                                    BackgroundColor="#EB1C23"
+                                    TextColor="White"
+                                    CornerRadius="20"
+                                    HeightRequest="40"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
